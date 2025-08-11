@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cart page</title>
+  <style>
+    * {
+      text-align: center;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(120deg, #e0f7fa, #f1f8e9);
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #1e293b;
+      margin-bottom: 20px;
+    }
+
+    #total {
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .cont {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 10px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .cont>div {
+      background: linear-gradient(135deg, #ffccbc, #d1c4e9);
+      margin: 19px;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow:
+        rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
+        rgba(50, 50, 93, 0.25) 0px 20px 40px -10px,
+        rgba(0, 0, 0, 0.2) 0px 15px 30px -15px;
+      transition: transform 0.2s ease;
+    }
+
+    .cont>div:hover {
+      transform: translateY(-5px);
+    }
+
+    img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      color: #111;
+      margin-bottom: 6px;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 8px;
+    }
+
+    h4 {
+      font-size: 1.1rem;
+      color: #ff5722;
+      /* Vibrant orange for price */
+      margin-bottom: 6px;
+    }
+
+    button {
+      padding: 8px 14px;
+      margin: 4px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: rgb(13, 166, 180);
+      color: #fff;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #eee;
+      margin: 10px 0;
+    }
+
+    button:nth-of-type(1) {
+      background-color: #ffeb3b;
+      /* Bright yellow for category */
+      color: #854d0e;
+    }
+
+    button:nth-of-type(2) {
+      background-color: #2196f3;
+      /* Bright blue for rating */
+      color: white;
+    }
+
+    button:last-of-type {
+      background-color: #4caf50;
+      /* Green for delete */
+      color: white;
+    }
+
+    button:last-of-type:hover {
+      background-color: #388e3c;
+      /* Darker green on hover */
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Cart page</h1>
+  <h1 id="total">Total cart price :: </h1>
+  <div class="cont"></div>
+</body>
+
+</html>
+<script>
+  let cart = JSON.parse(localStorage.getItem("cartarr")) || [];
+  // console.log(cart)
+  displayCard(cart);
+
+  let carttotal = cart.reduce((acc, el) => {
+    return acc + el.price;
+  }, 0)
+
+  document.querySelector("#total").innerText = `Total cart value :: ${carttotal}`
+
+  function displayCard(arr) {
+    document.querySelector(".cont").innerText = "";
+    arr.forEach((el, i) => {
+      const box = document.createElement("div")
+
+      const image = document.createElement("img");
+      image.setAttribute("src", el.image)
+
+      const title = document.createElement("h3");
+      title.innerText = `Title : ${el.title}`;
+
+      const description = document.createElement("p");
+      description.innerText = `Description : ${el.description}`;
+
+      // const category = document.createElement("button");
+      // categoryinnerText = `Category : ${el.category}`;
+
+      const price = document.createElement("h4");
+      price.innerText = `price : ${el.price}`;
+
+      const rating = document.createElement("button");
+      rating.innerText = `Rating : ${el.rating.rate}`;
+
+      const hrr = document.createElement("hr");
+
+      const Add = document.createElement("button")
+      Add.innerText = `Delete`;
+
+      Add.addEventListener("click", function () {
+        cart.splice(i, 1);
+        localStorage.setItem("cartarr", JSON.stringify(cart))
+
+        let carttotal = cart.reduce((acc, el) => {
+          return acc + el.price;
+        }, 0)
+        document.querySelector("#total").innerText = `Total cart value :: ${carttotal}`
+        displayCard(cart)
+      })
+
+      box.append(image, title, description, rating, price, hrr, Add)
+      document.querySelector(".cont").append(box)
+
+    });
+  }
+</script>

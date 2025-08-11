@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>product Page</title>
+
+  <style>
+    /* 🔁 Reset + Base Styles */
+    * {
+      box-sizing: border-box;
+      text-align: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(120deg, #e0f7fa, #f1f8e9);
+      /* Soft gradient background */
+      padding: 40px 20px;
+      /* Increased padding */
+    }
+
+    /* 🛍️ Heading */
+    h1 {
+      font-size: 3rem;
+      /* Increased size */
+      color: #1e293b;
+      margin-bottom: 40px;
+      /* Increased margin */
+      font-weight: 700;
+      /* Bolder font weight */
+    }
+
+    /* 🔎 Search & Sort Inputs */
+    input[type="text"],
+    select {
+      padding: 12px 16px;
+      width: 300px;
+      /* Increased width */
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      font-size: 1rem;
+      margin: 10px 5px;
+      outline: none;
+      transition: 0.3s ease;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Colorful Input Fields */
+    input[type="text"] {
+      background-color: #ffe0b2;
+      /* Light orange background */
+    }
+
+    input[type="text"]:focus {
+      border-color: #ff5722;
+      /* Darker orange border on focus */
+      box-shadow: 0 0 8px rgba(255, 87, 34, 0.2);
+      /* Orange shadow on focus */
+    }
+
+    select {
+      background-color: #bbdefb;
+      /* Light blue background for select */
+      color: #1e293b;
+      /* Dark text color */
+    }
+
+    select:focus {
+      border-color: #42a5f5;
+      /* Blue border on focus */
+      box-shadow: 0 0 8px rgba(66, 165, 245, 0.2);
+      /* Blue shadow on focus */
+    }
+
+    /* 🧱 Product Grid */
+    .cont {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      /* Increased gap */
+      padding: 40px;
+      /* Increased padding */
+      max-width: 1300px;
+      margin: auto;
+    }
+
+    /* 🪟 Card Style */
+    .cont>div {
+      background: linear-gradient(135deg, #ffccbc, #d1c4e9, #c8e6c9);
+      /* Colorful gradient background for cards */
+      border-radius: 16px;
+      padding: 20px;
+      margin: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      /* Softer shadow */
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .cont>div:hover {
+      transform: translateY(-4px);
+      /* Slightly less elevation */
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      /* Enhanced shadow on hover */
+    }
+
+    /* 🖼️ Product Image */
+    img {
+      width: 150px;
+      /* Increased image size */
+      height: 150px;
+      /* Increased image size */
+      object-fit: contain;
+      margin-bottom: 16px;
+      filter: drop-shadow(1px 2px 2px #cbd5e1);
+    }
+
+    /* 🔤 Title */
+    h3 {
+      font-size: 1.3rem;
+      /* Increased size */
+      color: #1e293b;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    /* 🧾 Description */
+    p {
+      font-size: 1rem;
+      /* Increased size */
+      color: #475569;
+      margin-bottom: 12px;
+      padding: 0 8px;
+    }
+
+    /* 💵 Price */
+    h4 {
+      font-size: 1.2rem;
+      /* Increased size */
+      color: #ff5722;
+      /* Vibrant orange for price */
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    /* 🟨 All Buttons */
+    button {
+      padding: 10px 16px;
+      /* Increased padding */
+      margin: 5px 4px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 🟡 Category Button */
+    .cont button:nth-of-type(1) {
+      background-color: #ffeb3b;
+      /* Bright yellow */
+      color: #854d0e;
+      font-weight: bold;
+    }
+
+    /* 🌟 Rating Button */
+    .cont button:nth-of-type(2) {
+      background-color: #2196f3;
+      /* Bright blue */
+      color: white;
+      font-weight: bold;
+    }
+
+    /* 🛒 Add to Cart Button */
+    .cont button:last-of-type {
+      background-color: #4caf50;
+      /* Green for add to cart */
+      color: white;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    .cont button:last-of-type:hover {
+      background-color: #388e3c;
+      /* Darker green on hover */
+      transform: scale(1.05);
+    }
+
+    /* ⚡ Hover Animation */
+    button:hover {
+      opacity: 0.95;
+    }
+
+    /* 🧾 Divider */
+    hr {
+      border: none;
+      border-top: 1px solid #e2e8f0;
+      margin: 14px 0;
+    }
+
+    /* 🛒 Cart Icon */
+    .cart-icon {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 1.5rem;
+      color: #ff5722;
+      /* Cart icon color */
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .cart-icon:hover {
+      transform: scale(1.1);
+      /* Scale effect on hover */
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Welcome to Ecommerce Website</h1>
+  <input type="text" id="search" placeholder="Enter your choice :: " oninput="sch()">
+
+  <select name="" id="sort" onchange="sort()">
+    <option value="">choose</option>
+    <option value="asc">Ascending</option>
+    <option value="dsc">Descending</option>
+  </select>
+  <a href="./cart.htm">Cart page</a>
+
+  <div class="cont"></div>
+</body>
+
+</html>
+<script>
+  let bag = [];
+  let cart = JSON.parse(localStorage.getItem("cartarr")) || []
+
+  //get data
+  let api = "https://fakestoreapi.com/products";
+  fetch(api)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data)
+      bag = data;
+      displayCard(data);
+
+    })
+    .catch((err) => console.log(err.massage))
+
+  function displayCard(arr) {
+    document.querySelector(".cont").innerText = "";
+    arr.forEach(el => {
+
+      const box = document.createElement("div")
+
+      const image = document.createElement("img");
+      image.setAttribute("src", el.image)
+
+      const title = document.createElement("h3");
+      title.innerText = `Title : ${el.title}`;
+
+      const description = document.createElement("p");
+      description.innerText = `Description : ${el.description}`;
+
+      // const category = document.createElement("button");
+      // categoryinnerText = `Category : ${el.category}`;
+
+      const price = document.createElement("h4");
+      price.innerText = `price : ${el.price}`;
+
+      const rating = document.createElement("button");
+      rating.innerText = `Rating : ${el.rating.rate}`;
+
+      const hrr = document.createElement("hr");
+
+      const Add = document.createElement("button")
+      Add.innerText = `Add to card`;
+
+      Add.addEventListener("click", function () {
+        cart.push(el);
+        localStorage.setItem("cartarr", JSON.stringify(cart))
+      })
+
+      box.append(image, title, description, rating, price, hrr, Add)
+      document.querySelector(".cont").append(box)
+
+    });
+  }
+
+  function sch() {
+    const query = document.querySelector("#search").value;
+    console.log(query)
+
+    let searchedArr = bag.filter((el) => {
+      return el.title.toLowerCase().includes(query.toLowerCase())
+    })
+    console.log(searchedArr.length)
+    displayCard(searchedArr)
+
+  }
+  function sort() {
+    const query = document.querySelector("#sort").value;
+    if (query == "asc") {
+      let sortedasc = bag.sort((a, b) => a.price - b.price);
+      console.log(sortedasc)
+      displayCard(sortedasc)
+    }
+    else {
+      let sorteddsc = bag.sort((b, a) => a.price - b.price);
+      // console.log(sortddsc)
+      displayCard(sorteddsc)
+    }
+  }
+</script>
