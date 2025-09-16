@@ -86,7 +86,7 @@
       const storedPassword = localStorage.getItem(username);
       if (storedPassword && storedPassword === password) {
         localStorage.setItem("activeUser", username);
-        window.location.href = "index.html"; // ✅ Go to your existing homepage
+        window.location.href = "./webpage.html"; // ✅ Go to your existing homepage
       } else {
         msg.textContent = "❌ Invalid username or password!";
         msg.className = "error";
@@ -95,3 +95,4 @@
   </script>
 </body>
 </html>
+
